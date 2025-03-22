@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唐文麒 - 个人主页</title>
+    <style>
+        /* 加载动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 滚动动画 */
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            line-height: 1.8;
+            color: #F0F0F0;
+            background: url('bg.jpg') center/cover no-repeat fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background-color: #1A3A2A;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        section {
+            background: rgba(26, 58, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            height: fit-content;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: #F0F0F0;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            color: #F0F0F0;
+            margin-bottom: 1.2rem;
+            font-size: 2rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .education-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin: 1.2rem 0;
+            padding: 1rem;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+
+        .contact-info i {
+            margin-right: 1.2rem;
+            font-size: 1.5rem;
+            color: #F0F0F0;
+        }
+
+        .honors-list {
+            padding-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        .honors-list li {
+            margin: 0.8rem 0;
+            padding: 0.5rem;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        /* 新增全屏页面样式 */
+        .fullpage {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .fullpage-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        .welcome-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1A3A2A 0%, #1A3A2A 100%);
+            transition: background 0.5s ease;
+            cursor: pointer;
+        }
+
+        .main-page {
+            padding-top: 60px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="animate">
+    <div class="fullpage-container">
+        <!-- 欢迎页面 -->
+        <div class="fullpage welcome-page">
+            <h1 style="font-size: 3rem; color: #F0F0F0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">欢迎来到唐文麒的主页</h1>
+            <script>
+                // 定义颜色数组
+                const colors = [
+                    '#1A3A2A', '#2D4A3A', '#3C5A4A', 
+                    '#4A6A5A', '#5A7A6A', '#6A8A7A',
+                    '#FF6B6B', '#4ECDC4', '#556270',
+                    '#C7F464', '#FF6F61', '#6B5B95',
+                    '#88B04B', '#F7CAC9', '#92A8D1',
+                    '#955251', '#B565A7', '#009B77',
+                    '#DD4124', '#D65076', '#45B8AC'
+                ];
+
+                // 获取欢迎页面元素
+                const welcomePage = document.querySelector('.welcome-page');
+
+                // 添加点击事件
+                welcomePage.addEventListener('click', () => {
+                    // 随机选择一个颜色
+                    const randomColor1 = colors[Math.floor(Math.random() * colors.length)];
+                    const randomColor2 = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // 应用渐变背景
+                    welcomePage.style.background = 
+                        `linear-gradient(135deg, ${randomColor1} 0%, ${randomColor2} 100%)`;
+                });
+            </script>
+        </div>
+
+        <!-- 主页面 -->
+        <div class="fullpage main-page">
+            <nav>
+                <ul>
+                    <li><a href="#about">个人简介</a></li>
+                    <li><a href="#education">教育经历</a></li>
+                    <li><a href="#honors">所获荣誉</a></li>
+                    <li><a href="#contact">联系方式</a></li>
+                </ul>
+            </nav>
+
+            <div class="container">
+                <script>
+                    // 导航点击事件
+                    document.addEventListener('DOMContentLoaded', () => {
+                        // 初始化显示第一个板块
+                        document.querySelector('.container section').classList.add('active');
+
+                        // 添加导航点击事件
+                        document.querySelectorAll('nav a').forEach(link => {
+                            link.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                
+                                // 移除所有板块的active类
+                                document.querySelectorAll('.container section').forEach(section => {
+                                    section.classList.remove('active');
+                                });
+
+                                // 显示点击对应的板块
+                                const target = document.querySelector(this.getAttribute('href'));
+                                target.classList.add('active');
+                            });
+                        });
+
+                        // 滚动动画触发
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('active');
+                                }
+                            });
+                        });
+
+                        document.querySelectorAll('.scroll-animate').forEach(el => {
+                            observer.observe(el);
+                        });
+                    });
+                </script>
+                <section id="about" class="scroll-animate">
+                    <h1>唐文麒</h1>
+                    <p>华中农业大学 资源与环境学院</p>
+                    <p>植物营养学专业 硕士研究生（2024级）</p>
+                    <p>导师：朱强 副教授</p>
+                    <p>研究方向：矿物固碳。</p>
+                </section>
+
+                <section id="education" class="scroll-animate">
+                    <h2>教育经历</h2>
+                    <div class="education-item">
+                        <h3>东北农业大学</h3>
+                        <p>本科 | 农业资源与环境专业</p>
+                        <p>2020 - 2024</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>华中农业大学</h3>
+                        <p>硕士研究生 | 植物营养学专业</p>
+                        <p>2024 - 至今</p>
+                        <p>导师：朱强 副教授</p>
+                    </div>
+                </section>
+
+                <section id="honors" class="scroll-animate">
+                    <h2>所获荣誉</h2>
+                    <ul class="honors-list">
+                        <li>2021-2022 东北农业大学校一等奖学金</li>
+                        <li>2021-2022 东北农业大学三好学生</li>
+                        <li>2022-2023 东北农业大学校二等奖学金</li>
+                        <li>2024年 华中农业大学研究生甲等奖学金</li>
+                    </ul>
+                </section>
+
+                <section id="contact" class="scroll-animate">
+                    <h2>联系方式</h2>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <p>邮箱：2308911448@qq.com</p>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fab fa-github"></i>
+                        <p>GitHub：https://abel-l76.github.io/myHomePages/</p>
+                    </div>
+                </section>
+            </div>
+
+            <footer style="text-align: center; padding: 1rem; background-color: #1A3A2A; color: #F0F0F0;">
+                <p>相信相信的力量</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
